@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(5, 248, 37);
+    background-color: rgba(5, 248, 37, 0.5);
   }
 
   
@@ -49,10 +49,10 @@ body {
   }
   
   li a:hover:not(.active) {
-    background-color: rgb(5, 248, 37);
+    background-color: rgba(5, 248, 37, 0.5);
   }
   
   .active {
-    background-color: #04fa10;
+    background-color: rgb(5, 248, 37, 0.5);
   }
   
