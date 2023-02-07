@@ -17,6 +17,20 @@
       font-size: 48px;
       vertical-align: middle;
     }
+
+    button {
+      background-color: lightblue;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -83,17 +97,17 @@
           });
           alert(`${cellA.textContent} has won the game!`);
         }
-      });
-    }
-    
-    function reset() {
-      xIsNext = true;
-      gameOver = false;
-      cells.forEach(cell => {
-        cell.textContent = "";
-        cell.addEventListener("click", handleClick);
-      });
-    }
+     
+    });
+  
+  function reset() {
+    cells.forEach(cell => {
+      cell.textContent = "";
+      cell.addEventListener("click", handleClick);
+    });
+    xIsNext = true;
+    gameOver = false;
+  }
   </script>
 </body>
 </html>
