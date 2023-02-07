@@ -97,17 +97,17 @@
           });
           alert(`${cellA.textContent} has won the game!`);
         }
-     
-    });
-  
-  function reset() {
-    cells.forEach(cell => {
-      cell.textContent = "";
-      cell.addEventListener("click", handleClick);
-    });
-    xIsNext = true;
-    gameOver = false;
-  }
+      });
+    }
+    
+    function reset() {
+      cells.forEach(cell => {
+        cell.textContent = "";
+        cell.addEventListener("click", handleClick);
+      });
+      xIsNext = true;
+      gameOver = false;
+    }
   </script>
 </body>
 </html>
