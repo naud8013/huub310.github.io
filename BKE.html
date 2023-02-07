@@ -1,105 +1,103 @@
-<!DOCTYPE html>
 <html>
-<head>
-  <style>
-    table {
-      border-collapse: collapse;
-      margin: 0 auto;
-    }
-    td {
-      width: 50px;
-      height: 50px;
-      text-align: center;
-      vertical-align: middle;
-      border: 1px solid black;
-      font-size: 24px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-      margin-top: 20px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
-</head>
-<body>
-  <table>
-    <tr>
-      <td id="cell-0-0"></td>
-      <td id="cell-0-1"></td>
-      <td id="cell-0-2"></td>
-    </tr>
-    <tr>
-      <td id="cell-1-0"></td>
-      <td id="cell-1-1"></td>
-      <td id="cell-1-2"></td>
-    </tr>
-    <tr>
-      <td id="cell-2-0"></td>
-      <td id="cell-2-1"></td>
-      <td id="cell-2-2"></td>
-    </tr>
-  </table>
-  <br>
-  <button id="reset">Opnieuw</button>
-  
-  <script>
-    const cells = document.querySelectorAll("td");
-    const resetBtn = document.querySelector("#reset");
-    let xIsNext = true;
-    let gameOver = false;
-    
-    cells.forEach(cell => {
-      cell.addEventListener("click", handleClick);
-    });
-    
-    resetBtn.addEventListener("click", reset);
-    
-    function handleClick() {
-      if (gameOver) return;
-      if (this.textContent) return;
-      this.textContent = xIsNext ? "X" : "O";
-      xIsNext = !xIsNext;
-      checkForWin();
-    }
-    
-    function checkForWin() {
-      const winConditions = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-      ];
-      winConditions.forEach(condition => {
-        const [a, b, c] = condition;
-        const cellA = cells[a];
-        const cellB = cells[b];
-        const cellC = cells[c];
-        if (cellA.textContent && cellA.textContent === cellB.textContent && cellA.textContent === cellC.text
-        .textContent) {
-          gameOver = true;
-          cells.forEach(cell => {
-            cell.removeEventListener("click", handleClick);
-          });
-          alert(`${cellA.textContent} has won the game!`);
+  <head>
+    <style>
+      .board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-gap: 1px;
+        width: 300px;
+        height: 300px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 36px;
+      }
+
+      .square {
+        background-color: lightgray;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board">
+      <div class="square" id="square-0"></div>
+      <div class="square" id="square-1"></div>
+      <div class="square" id="square-2"></div>
+      <div class="square" id="square-3"></div>
+      <div class="square" id="square-4"></div>
+      <div class="square" id="square-5"></div>
+      <div class="square" id="square-6"></div>
+      <div class="square" id="square-7"></div>
+      <div class="square" id="square-8"></div>
+    </div>
+    <button id="reset-button" style="display: block; margin: 20px auto;">Reset</button>
+
+    <script>
+      const squares = document.querySelectorAll('.square');
+      const resetButton = document.querySelector('#reset-button');
+
+      let xIsNext = true;
+      let winner = null;
+
+      squares.forEach(square => {
+        square.addEventListener('click', handleClick);
+      });
+
+      resetButton.addEventListener('click', handleReset);
+
+      function handleClick(event) {
+        const square = event.target;
+        const squareId = parseInt(square.id.split('-')[1]);
+
+        if (winner || squares[squareId].textContent) {
+          return;
         }
-      });
-    }
-    
-    function reset() {
-      xIsNext = true;
-      gameOver = false;
-      cells.forEach(cell => {
-        cell.textContent = "";
-        cell.addEventListener("click", handleClick);
-      });
-    }
-  </script>
-</body>
+
+        squares[squareId].textContent = xIsNext ? 'X' : 'O';
+
+        xIsNext = !xIsNext;
+
+        checkForWin();
+      }
+
+      function checkForWin() {
+        const lines = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6]
+        ];
+
+        for (const line of lines) {
+          const [a, b, c] = line;
+
+          if (
+            squares[a].textContent === squares[b].textContent &&
+            squares[b].textContent === squares[c].textContent
+          ) {
+            winner = squares[a].textContent;
+            break;
+          }
+        }
+
+        if (winner) {
+          alert(`${winner} heeft gewonnen!`);
+        }
+      }
+
+      function handleReset() {
+        squares.forEach(square => {
+          square.textContent = '';
+        });
+
+        winner = null;
+        xIsNext = true;
+      }
+    </script>
+  </body>
 </html>
