@@ -32,6 +32,8 @@
       <td id="cell-2-2"></td>
     </tr>
   </table>
+  <br>
+  <button id="reset">Reset</button>
   <script>
     const cells = document.querySelectorAll("td");
     let xIsNext = true;
@@ -43,6 +45,13 @@
         }
       });
     }
+    const resetButton = document.querySelector("#reset");
+    resetButton.addEventListener("click", function() {
+      xIsNext = true;
+      for (let cell of cells) {
+        cell.textContent = "";
+      }
+    });
   </script>
 </body>
 </html>
